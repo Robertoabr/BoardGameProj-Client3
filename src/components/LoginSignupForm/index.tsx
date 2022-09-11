@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { useState } from 'react';
 import {
   Row,
   FormGroup,
@@ -7,15 +7,24 @@ import {
   Button,
 } from 'react-bootstrap';
 
-function handleInputChange(e: FormEvent) {
-  console.log('e', e);
-}
-
-function handleLogin() {
-  console.log('login fired');
+function handleLogin(e: any) {
+  e.preventDefault();
+  console.log('e.target.email', e.target.email.value);
+  console.log('e.target.password', e.target.password.value);
 }
 
 export default function LoginSignupForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleEmailChange(event: any) {
+    setEmail(event.target.value);
+  }
+
+  function handlePasswordChange(event: any) {
+    setPassword(event.target.value);
+  }
+
   return (
     <div>
       <div className="Login">
@@ -27,7 +36,8 @@ export default function LoginSignupForm() {
                 type="text"
                 name="email"
                 placeholder="Enter your email"
-                onChange={handleInputChange}
+                onChange={handleEmailChange}
+                value={email}
               />
             </FormGroup>
             <FormGroup controlId="password">
@@ -36,7 +46,8 @@ export default function LoginSignupForm() {
                 type="password"
                 name="password"
                 placeholder="Enter your password"
-                onChange={handleInputChange}
+                onChange={handlePasswordChange}
+                value={password}
               />
             </FormGroup>
             <Button type="submit">Sign-In</Button>
